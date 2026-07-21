@@ -2,10 +2,14 @@
 API route definitions for PulseAPI.
 """
 
+
 from fastapi import APIRouter, HTTPException
 
 from app.models.schema import WineFeatures, PredictionResponse
 from app.services.predictor import predict
+
+from fastapi import APIRouter
+
 
 router = APIRouter()
 
@@ -39,3 +43,4 @@ def predict_wine_class(features: WineFeatures) -> PredictionResponse:
         return predict(features)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
