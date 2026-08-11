@@ -18,11 +18,13 @@ def get_db():
     Dependency that provides a database session for each request.
     Opens a session, yields it, then closes it when the request is done.
     """
-    db = SessionLocal()
+    db = SessionLocal() # Create a new database session using the SessionLocal factory. This session will be used to interact with the database for the duration of the request.
+    
+    # Yield the session to the route handler. This allows the route to use the database session for queries and transactions.
     try:
-        yield db
-    finally:
-        db.close()
+        yield db # Yield the database session to the route handler. This allows the route to use the database session for queries and transactions.
+    finally: # Ensure that the database session is closed after the request is complete, even if an error occurs. This prevents database connections from being left open and potentially causing resource leaks.
+        db.close() # Close the database session after the request is complete. This ensures that the connection is returned to the pool and can be reused for future requests.
 
 
 @router.get("/health")

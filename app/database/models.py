@@ -5,7 +5,7 @@ Defines the predictions table that stores every prediction
 request and response for history and analysis.
 """
 
-from datetime import datetime, timezone
+from datetime import datetime, timezone # here datetime is used to get the current date and time, and timezone is used to ensure that the timestamp is in UTC
 from sqlalchemy import Integer, Float, String, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -20,10 +20,11 @@ class Prediction(Base):
     inserted into this table.
     """
 
-    __tablename__ = "predictions"
+    __tablename__ = "predictions"  # The name of the table in the database. This is where all prediction records will be stored.
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True) # The unique identifier for each prediction. It's an integer that auto-increments with each new entry.
     
+    # these are the 13 chemical features that the model uses to make predictions. Each feature is stored as a float in the database and cannot be null.
     # Input features
     alcohol: Mapped[float] = mapped_column(Float, nullable=False)
     malic_acid: Mapped[float] = mapped_column(Float, nullable=False)
